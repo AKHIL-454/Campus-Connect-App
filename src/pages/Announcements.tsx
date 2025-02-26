@@ -1,13 +1,20 @@
+
 import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Bell, Pin, Megaphone, Calendar, Info, BookOpen, Award, Briefcase } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { useNavigate } from "react-router-dom";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 const announcements = [
   {
-    id: "1",
+    id: 1,
     title: "Final Exam Schedule Released",
     content: "The final examination schedule for Fall 2024 is now available. Please review carefully and note your exam dates and locations. Make sure to check room assignments and bring necessary identification. Contact your academic advisor if you have any scheduling conflicts.",
     date: "2024-03-15",
@@ -24,7 +31,7 @@ const announcements = [
     ]
   },
   {
-    id: "2",
+    id: 2,
     title: "Campus Career Fair Next Week",
     content: "Don't miss the opportunity to meet with top employers at our annual career fair. Over 50 companies will be present, offering internships and full-time positions across various industries.",
     date: "2024-03-14",
@@ -41,7 +48,7 @@ const announcements = [
     ]
   },
   {
-    id: "3",
+    id: 3,
     title: "Academic Excellence Awards Ceremony",
     content: "Join us in celebrating student achievements at the annual Academic Excellence Awards ceremony. Outstanding students from each department will be recognized for their exceptional performance.",
     date: "2024-03-20",
@@ -73,7 +80,7 @@ const urgencyColors = {
 };
 
 const Announcements = () => {
-  const navigate = useNavigate();
+  const [selectedAnnouncement, setSelectedAnnouncement] = useState<typeof announcements[0] | null>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -101,7 +108,7 @@ const Announcements = () => {
                 announcement.urgency === 'Medium' ? 'border-l-amber-500' :
                 'border-l-emerald-500'
               }`}
-              onClick={() => navigate(`/announcements/${announcement.id}`)}
+              onClick={() => setSelectedAnnouncement(announcement)}
             >
               <div className="flex justify-between items-start gap-4">
                 <div className="space-y-3 flex-1">
@@ -137,6 +144,74 @@ const Announcements = () => {
             </Card>
           ))}
         </div>
+
+        <Dialog open={!!selectedAnnouncement} onOpenChange={() => setSelectedAnnouncement(null)}>
+          <DialogContent className="max-w-3xl h-[80vh] flex flex-col">
+            {selectedAnnouncement && (
+              <>
+                <DialogHeader className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <selectedAnnouncement.icon className={`w-6 h-6 ${
+                      selectedAnnouncement.category === 'Academic' ? 'text-indigo-600' :
+                      selectedAnnouncement.category === 'Career' ? 'text-emerald-600' :
+                      'text-violet-600'
+                    }`} />
+                    <div>
+                      <DialogTitle className="text-2xl">
+                        {selectedAnnouncement.title}
+                      </DialogTitle>
+                      <DialogDescription>
+                        <div className="flex items-center gap-3 mt-2">
+                          <Badge className={categoryColors[selectedAnnouncement.category as keyof typeof categoryColors]}>
+                            {selectedAnnouncement.category}
+                          </Badge>
+                          <span className="text-sm text-muted-foreground">
+                            Posted by {selectedAnnouncement.author}
+                          </span>
+                          <span className="text-sm text-muted-foreground">
+                            {selectedAnnouncement.date}
+                          </span>
+                        </div>
+                      </DialogDescription>
+                    </div>
+                  </div>
+                </DialogHeader>
+                
+                <div className="flex-1 overflow-y-auto mt-4">
+                  <div className="space-y-6">
+                    <div className="bg-muted/30 p-6 rounded-lg border border-indigo-100">
+                      <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                        <Info className="w-5 h-5 text-indigo-600" />
+                        Announcement Details
+                      </h4>
+                      <p className="text-foreground leading-relaxed mb-4">
+                        {selectedAnnouncement.content}
+                      </p>
+                      <div className="space-y-2">
+                        {selectedAnnouncement.detailedInfo.map((info, index) => (
+                          <div key={index} className="flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+                            <span className="text-muted-foreground">{info}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="bg-muted/30 p-6 rounded-lg border border-indigo-100">
+                      <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                        <Calendar className="w-5 h-5 text-indigo-600" />
+                        Important Dates
+                      </h4>
+                      <div className="text-muted-foreground">
+                        Event Date: {selectedAnnouncement.date}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
