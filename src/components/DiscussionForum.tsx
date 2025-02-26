@@ -172,43 +172,85 @@ const DiscussionForum = () => {
       </div>
 
       <Dialog open={!!selectedDiscussion} onOpenChange={() => setSelectedDiscussion(null)}>
-        <DialogContent className="sm:max-w-[600px]">
+        <DialogContent className="max-w-4xl h-[90vh] flex flex-col p-0 gap-0">
           {selectedDiscussion && (
             <>
-              <DialogHeader>
-                <DialogTitle className="text-xl font-semibold">{selectedDiscussion.title}</DialogTitle>
+              <DialogHeader className="px-6 py-4 border-b">
+                <DialogTitle className="text-2xl font-semibold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+                  {selectedDiscussion.title}
+                </DialogTitle>
                 <DialogDescription>
                   <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-2">
                     <User size={14} className="text-indigo-600" />
                     <span>{selectedDiscussion.author}</span>
                     <span>•</span>
                     <span>{selectedDiscussion.timeAgo}</span>
+                    <Badge className={
+                      selectedDiscussion.category === 'Academics' ? 'bg-indigo-100 text-indigo-800' :
+                      selectedDiscussion.category === 'Events' ? 'bg-amber-100 text-amber-800' :
+                      'bg-violet-100 text-violet-800'
+                    }>
+                      {selectedDiscussion.category}
+                    </Badge>
                   </div>
                 </DialogDescription>
               </DialogHeader>
               
-              <div className="mt-4 space-y-6">
-                <p className="text-foreground">{selectedDiscussion.description}</p>
-                
-                <div className="space-y-4">
-                  <h4 className="font-semibold text-lg">Comments</h4>
-                  {selectedDiscussion.comments.map((comment) => (
-                    <div key={comment.id} className="bg-muted/50 rounded-lg p-4 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <span className="font-medium">{comment.author}</span>
-                        <button className="flex items-center space-x-1 text-sm text-muted-foreground hover:text-indigo-600">
-                          <ThumbsUp size={14} />
-                          <span>{comment.likes}</span>
-                        </button>
-                      </div>
-                      <p className="text-sm text-muted-foreground">{comment.text}</p>
+              <div className="flex-1 overflow-y-auto px-6 py-4">
+                <div className="space-y-6">
+                  <div className="bg-muted/30 p-6 rounded-lg border border-indigo-100">
+                    <p className="text-foreground text-lg leading-relaxed">
+                      {selectedDiscussion.description}
+                    </p>
+                    <div className="flex items-center space-x-4 mt-4 text-sm text-muted-foreground">
+                      <button className="flex items-center space-x-1 hover:text-indigo-600 transition-colors">
+                        <MessageCircle size={16} />
+                        <span>{selectedDiscussion.replies} replies</span>
+                      </button>
+                      <button className="flex items-center space-x-1 hover:text-indigo-600 transition-colors">
+                        <ThumbsUp size={16} />
+                        <span>{selectedDiscussion.likes} likes</span>
+                      </button>
                     </div>
-                  ))}
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <h4 className="font-semibold text-xl text-foreground flex items-center space-x-2">
+                      <MessageCircle size={20} className="text-indigo-600" />
+                      <span>Comments</span>
+                    </h4>
+                    {selectedDiscussion.comments.map((comment) => (
+                      <div 
+                        key={comment.id} 
+                        className="bg-background rounded-lg p-4 space-y-2 border border-indigo-100 hover:border-indigo-200 transition-colors"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <span className="font-medium text-foreground">{comment.author}</span>
+                          </div>
+                          <button 
+                            className="flex items-center space-x-1 text-sm text-muted-foreground hover:text-indigo-600 transition-colors"
+                          >
+                            <ThumbsUp size={14} />
+                            <span>{comment.likes}</span>
+                          </button>
+                        </div>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {comment.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+              </div>
 
+              <div className="border-t p-4 bg-muted/30">
                 <div className="flex items-center space-x-2">
-                  <Input placeholder="Add a comment..." className="flex-1" />
-                  <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
+                  <Input 
+                    placeholder="Add a comment..." 
+                    className="flex-1 bg-background border-indigo-100 focus:border-indigo-300"
+                  />
+                  <Button className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90">
                     Comment
                   </Button>
                 </div>
