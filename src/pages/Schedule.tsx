@@ -1,13 +1,13 @@
 import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, BookOpen, MapPin, User, Bell, Calendar as CalendarIcon } from "lucide-react";
+import { Calendar, Clock, BookOpen, MapPin, User, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 const schedule = [
   {
-    id: 1,
+    id: "1",
     subject: "Advanced Mathematics",
     type: "Lecture",
     time: "09:00 - 10:30",
@@ -20,7 +20,7 @@ const schedule = [
     isExam: false
   },
   {
-    id: 2,
+    id: "2",
     subject: "Computer Science",
     type: "Lab",
     time: "11:00 - 12:30",
@@ -33,7 +33,7 @@ const schedule = [
     isExam: false
   },
   {
-    id: 3,
+    id: "3",
     subject: "Midterm Examination",
     type: "Exam",
     time: "14:00 - 16:00",
@@ -44,19 +44,6 @@ const schedule = [
     materialRequired: "Student ID, Blue/Black Pens, Calculator",
     examDetails: ["No electronic devices allowed", "Bring student ID", "Arrive 15 minutes early"],
     isExam: true
-  },
-  {
-    id: 4,
-    subject: "Research Methodology",
-    type: "Seminar",
-    time: "16:30 - 18:00",
-    room: "Conference Room 2",
-    professor: "Dr. Emily Torres",
-    building: "Research Center",
-    description: "Advanced research methods and thesis preparation guidance.",
-    materialRequired: "Research Proposal Draft",
-    upcomingTopics: ["Literature Review", "Research Design", "Data Analysis"],
-    isExam: false
   }
 ];
 
