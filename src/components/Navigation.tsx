@@ -1,12 +1,12 @@
 
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { SignedIn, SignedOut, UserButton, useClerk } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { 
   Menu, 
   X, 
   Bell, 
-  UserCircle, 
   MessageSquare, 
   Calendar, 
   Users,
@@ -20,6 +20,8 @@ import {
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { signOut } = useClerk();
 
   const navItems = [
     { name: 'Discussions', icon: MessageSquare, href: '/' },
@@ -33,6 +35,11 @@ const Navigation = () => {
 
   const isActive = (path: string) => {
     return location.pathname === path;
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
   };
 
   return (
@@ -62,16 +69,29 @@ const Navigation = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="icon">
-              <Bell size={20} />
-            </Button>
-            <Button variant="ghost" size="icon">
-              <UserCircle size={20} />
-            </Button>
-            <Button variant="default" className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90">
-              <LogIn className="h-4 w-4 mr-2" />
-              Sign In
-            </Button>
+            <SignedIn>
+              <Button variant="ghost" size="icon">
+                <Bell size={20} />
+              </Button>
+              <UserButton 
+                appearance={{
+                  elements: {
+                    userButtonAvatarBox: "w-8 h-8",
+                  }
+                }}
+                afterSignOutUrl="/"
+              />
+            </SignedIn>
+            <SignedOut>
+              <Button 
+                variant="default" 
+                className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
+                onClick={() => navigate('/sign-in')}
+              >
+                <LogIn className="h-4 w-4 mr-2" />
+                Sign In
+              </Button>
+            </SignedOut>
           </div>
 
           {/* Mobile menu button */}
@@ -102,10 +122,28 @@ const Navigation = () => {
                 <span>{item.name}</span>
               </Link>
             ))}
-            <Button variant="default" className="w-full mt-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90">
-              <LogIn className="h-4 w-4 mr-2" />
-              Sign In
-            </Button>
+            <SignedOut>
+              <Button 
+                variant="default" 
+                className="w-full mt-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
+                onClick={() => navigate('/sign-in')}
+              >
+                <LogIn className="h-4 w-4 mr-2" />
+                Sign In
+              </Button>
+            </SignedOut>
+            <SignedIn>
+              <div className="pt-4 flex items-center justify-between px-3">
+                <UserButton 
+                  appearance={{
+                    elements: {
+                      userButtonAvatarBox: "w-8 h-8",
+                    }
+                  }}
+                  afterSignOutUrl="/"
+                />
+              </div>
+            </SignedIn>
           </div>
         </div>
       )}

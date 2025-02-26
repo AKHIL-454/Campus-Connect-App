@@ -1,5 +1,5 @@
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import Index from "@/pages/Index";
 import Career from "@/pages/Career";
 import JobDetails from "@/pages/JobDetails";
@@ -18,29 +18,109 @@ import Chatbot from "@/pages/Chatbot";
 import Announcements from "@/pages/Announcements";
 import ClubDetails from "@/pages/ClubDetails";
 import NotFound from "@/pages/NotFound";
+import SignIn from "@/pages/SignIn";
+import SignUp from "@/pages/SignUp";
 
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Public routes */}
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
         <Route path="/" element={<Index />} />
-        <Route path="/career" element={<Career />} />
-        <Route path="/career/job/:id" element={<JobDetails />} />
-        <Route path="/career/hackathon/:id" element={<HackathonDetails />} />
-        <Route path="/alumni" element={<Alumni />} />
-        <Route path="/alumni/profile/:id" element={<AlumniProfile />} />
-        <Route path="/alumni/talks" element={<AlumniTalks />} />
-        <Route path="/alumni/talks/:id" element={<TalkDetails />} />
-        <Route path="/alumni/mentor" element={<MentorConnect />} />
-        <Route path="/schedule" element={<Schedule />} />
-        <Route path="/clubs" element={<Clubs />} />
-        <Route path="/club/:clubName" element={<ClubDetails />} />
-        <Route path="/chat" element={<Chat />}>
-          <Route path="room/:roomId" element={<ChatRoom />} />
-          <Route path="qa/:sessionId" element={<QASession />} />
-          <Route path="bot" element={<Chatbot />} />
-        </Route>
         <Route path="/announcements" element={<Announcements />} />
+        
+        {/* Protected routes */}
+        <Route
+          path="/career/*"
+          element={
+            <>
+              <SignedIn>
+                <Routes>
+                  <Route path="/" element={<Career />} />
+                  <Route path="job/:id" element={<JobDetails />} />
+                  <Route path="hackathon/:id" element={<HackathonDetails />} />
+                </Routes>
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        
+        <Route
+          path="/alumni/*"
+          element={
+            <>
+              <SignedIn>
+                <Routes>
+                  <Route path="/" element={<Alumni />} />
+                  <Route path="profile/:id" element={<AlumniProfile />} />
+                  <Route path="talks" element={<AlumniTalks />} />
+                  <Route path="talks/:id" element={<TalkDetails />} />
+                  <Route path="mentor" element={<MentorConnect />} />
+                </Routes>
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+
+        {/* Other protected routes */}
+        <Route
+          path="/schedule"
+          element={
+            <>
+              <SignedIn>
+                <Schedule />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        
+        <Route
+          path="/clubs/*"
+          element={
+            <>
+              <SignedIn>
+                <Routes>
+                  <Route path="/" element={<Clubs />} />
+                  <Route path=":clubName" element={<ClubDetails />} />
+                </Routes>
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+
+        <Route
+          path="/chat/*"
+          element={
+            <>
+              <SignedIn>
+                <Routes>
+                  <Route path="/" element={<Chat />} />
+                  <Route path="room/:roomId" element={<ChatRoom />} />
+                  <Route path="qa/:sessionId" element={<QASession />} />
+                  <Route path="bot" element={<Chatbot />} />
+                </Routes>
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
