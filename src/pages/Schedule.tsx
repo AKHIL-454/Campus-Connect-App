@@ -1,17 +1,9 @@
-
 import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, BookOpen, MapPin, User, Bell, Calendar as CalendarIcon, Info } from "lucide-react";
-import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
+import { Calendar, Clock, BookOpen, MapPin, User, Bell, Calendar as CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const schedule = [
   {
@@ -76,7 +68,7 @@ const typeColors = {
 };
 
 const Schedule = () => {
-  const [selectedClass, setSelectedClass] = useState<typeof schedule[0] | null>(null);
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-background">
@@ -116,7 +108,7 @@ const Schedule = () => {
               className={`p-6 cursor-pointer transition-all duration-300 hover:shadow-lg border-l-4 ${
                 item.isExam ? 'border-l-rose-500' : 'border-l-indigo-500'
               }`}
-              onClick={() => setSelectedClass(item)}
+              onClick={() => navigate(`/schedule/${item.id}`)}
             >
               <div className="flex items-start justify-between">
                 <div className="space-y-3">
@@ -148,109 +140,6 @@ const Schedule = () => {
             </Card>
           ))}
         </div>
-
-        <Dialog open={!!selectedClass} onOpenChange={() => setSelectedClass(null)}>
-          <DialogContent className="max-w-3xl h-[80vh] flex flex-col">
-            {selectedClass && (
-              <>
-                <DialogHeader className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <BookOpen className={`w-6 h-6 ${selectedClass.isExam ? 'text-rose-600' : 'text-indigo-600'}`} />
-                    <div>
-                      <DialogTitle className="text-2xl">
-                        {selectedClass.subject}
-                      </DialogTitle>
-                      <DialogDescription>
-                        <div className="flex items-center gap-3 mt-2">
-                          <Badge className={typeColors[selectedClass.type as keyof typeof typeColors]}>
-                            {selectedClass.type}
-                          </Badge>
-                          <span className="text-sm text-muted-foreground">
-                            {selectedClass.professor}
-                          </span>
-                        </div>
-                      </DialogDescription>
-                    </div>
-                  </div>
-                </DialogHeader>
-                
-                <div className="flex-1 overflow-y-auto mt-4">
-                  <div className="space-y-6">
-                    <div className="bg-muted/30 p-6 rounded-lg border border-indigo-100">
-                      <h4 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                        <Info className="w-5 h-5 text-indigo-600" />
-                        Class Information
-                      </h4>
-                      <p className="text-foreground leading-relaxed mb-4">
-                        {selectedClass.description}
-                      </p>
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-2">
-                            <Clock className="w-4 h-4 text-indigo-600" />
-                            <span className="text-muted-foreground">Time: {selectedClass.time}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <MapPin className="w-4 h-4 text-indigo-600" />
-                            <span className="text-muted-foreground">Location: {selectedClass.room}, {selectedClass.building}</span>
-                          </div>
-                        </div>
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-2">
-                            <User className="w-4 h-4 text-indigo-600" />
-                            <span className="text-muted-foreground">Instructor: {selectedClass.professor}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <BookOpen className="w-4 h-4 text-indigo-600" />
-                            <span className="text-muted-foreground">Materials: {selectedClass.materialRequired}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {selectedClass.isExam ? (
-                      <div className="bg-rose-50 p-6 rounded-lg border border-rose-200">
-                        <h4 className="font-semibold text-lg mb-3 text-rose-800">Exam Instructions</h4>
-                        <ul className="space-y-2">
-                          {selectedClass.examDetails?.map((detail, index) => (
-                            <li key={index} className="flex items-center gap-2 text-rose-700">
-                              <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
-                              {detail}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ) : (
-                      <div className="bg-muted/30 p-6 rounded-lg border border-indigo-100">
-                        <h4 className="font-semibold text-lg mb-3">Upcoming Topics</h4>
-                        <ul className="space-y-2">
-                          {selectedClass.upcomingTopics?.map((topic, index) => (
-                            <li key={index} className="flex items-center gap-2 text-muted-foreground">
-                              <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
-                              {topic}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    <div className="flex justify-end space-x-2">
-                      <Button variant="outline" className="border-indigo-200 hover:border-indigo-300">
-                        <Bell className="w-4 h-4 mr-2" />
-                        Set Reminder
-                      </Button>
-                      {!selectedClass.isExam && (
-                        <Button className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90">
-                          View Course Materials
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-          </DialogContent>
-        </Dialog>
       </div>
     </div>
   );
