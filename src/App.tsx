@@ -20,6 +20,7 @@ import ClubDetails from "@/pages/ClubDetails";
 import NotFound from "@/pages/NotFound";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
+import Profile from "@/pages/Profile";
 
 function App() {
   return (
@@ -32,6 +33,20 @@ function App() {
         <Route path="/announcements" element={<Announcements />} />
         
         {/* Protected routes */}
+        <Route
+          path="/profile"
+          element={
+            <>
+              <SignedIn>
+                <Profile />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        
         <Route
           path="/career/*"
           element={
@@ -70,7 +85,6 @@ function App() {
           }
         />
 
-        {/* Other protected routes */}
         <Route
           path="/schedule"
           element={
