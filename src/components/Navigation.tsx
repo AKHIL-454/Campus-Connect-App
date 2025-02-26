@@ -12,7 +12,9 @@ import {
   Users,
   Megaphone,
   Briefcase,
-  MessagesSquare
+  MessagesSquare,
+  GraduationCap,
+  LogIn
 } from "lucide-react";
 
 const Navigation = () => {
@@ -24,8 +26,9 @@ const Navigation = () => {
     { name: 'Announcements', icon: Megaphone, href: '/announcements' },
     { name: 'Schedule', icon: Calendar, href: '/schedule' },
     { name: 'Clubs', icon: Users, href: '/clubs' },
-    { name: 'Chat', icon: MessagesSquare, href: '/chat' },
     { name: 'Career', icon: Briefcase, href: '/career' },
+    { name: 'Alumni', icon: GraduationCap, href: '/alumni' },
+    { name: 'Chat', icon: MessagesSquare, href: '/chat' },
   ];
 
   const isActive = (path: string) => {
@@ -65,6 +68,10 @@ const Navigation = () => {
             <Button variant="ghost" size="icon">
               <UserCircle size={20} />
             </Button>
+            <Button variant="default" className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90">
+              <LogIn className="h-4 w-4 mr-2" />
+              Sign In
+            </Button>
           </div>
 
           {/* Mobile menu button */}
@@ -95,6 +102,10 @@ const Navigation = () => {
                 <span>{item.name}</span>
               </Link>
             ))}
+            <Button variant="default" className="w-full mt-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90">
+              <LogIn className="h-4 w-4 mr-2" />
+              Sign In
+            </Button>
           </div>
         </div>
       )}
