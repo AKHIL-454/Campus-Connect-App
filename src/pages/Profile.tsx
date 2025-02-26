@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -7,6 +7,13 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { UserRound, Mail, Phone, Home, IdCard, School, Building2, BookOpen, MapPin } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  'https://vdutgmjaseepqntdnkzh.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkdXRnbWphc2VlcHFudGRua3poIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA1OTMwMTcsImV4cCI6MjA1NjE2OTAxN30.gcsavtMbrrPdFPVMfQMuEbz_d6MjFwJK5FjQjxaYy74'
+);
 
 type UserRole = 'student' | 'teacher' | 'admin';
 
@@ -28,7 +35,9 @@ interface ProfileData {
 
 const Profile = () => {
   const { user } = useUser();
+  const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [role, setRole] = useState<UserRole>('student');
   const [profileData, setProfileData] = useState<ProfileData>({
     role: 'student',
@@ -37,9 +46,70 @@ const Profile = () => {
     address: '',
   });
 
+  useEffect(() => {
+    if (user?.id) {
+      loadUserProfile();
+    }
+  }, [user]);
+
+  const loadUserProfile = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', user?.id)
+        .single();
+
+      if (error) {
+        console.error('Error loading profile:', error);
+        return;
+      }
+
+      if (data) {
+        setProfileData(data);
+        setRole(data.role);
+      }
+    } catch (error) {
+      console.error('Error loading profile:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleSave = async () => {
-    // Here you would typically save the profile data to your backend
-    setIsEditing(false);
+    try {
+      const updatedProfile = {
+        ...profileData,
+        role,
+        user_id: user?.id,
+        email: user?.primaryEmailAddress?.emailAddress,
+        updated_at: new Date().toISOString(),
+      };
+
+      const { error } = await supabase
+        .from('profiles')
+        .upsert([updatedProfile], {
+          onConflict: 'user_id',
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Profile updated successfully!",
+        duration: 3000,
+      });
+
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error saving profile:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update profile. Please try again.",
+        variant: "destructive",
+        duration: 3000,
+      });
+    }
   };
 
   return (
