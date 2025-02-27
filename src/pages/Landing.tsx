@@ -1,3 +1,4 @@
+
 import { useNavigate } from "react-router-dom";
 import { SignInButton, SignUpButton } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
@@ -103,7 +104,7 @@ const Landing = () => {
     <div className="min-h-screen">
       {/* Hero Banner */}
       <div className="relative h-screen w-full">
-        <div className="absolute inset-0 backdrop-blur-[2px]">
+        <div className="absolute inset-0 backdrop-blur-[8px]">
           <img 
             src="/lovable-uploads/5f57938e-039a-43b1-a474-9b831e8ebee6.png" 
             alt="RGUKT RK Valley Campus" 
