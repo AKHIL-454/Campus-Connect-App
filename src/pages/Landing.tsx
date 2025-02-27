@@ -69,7 +69,7 @@ const features = [
     title: "Secure Platform",
     description: "Role-based access control with verified authentication",
     gradient: "from-slate-500 to-gray-500",
-    preview: "/lovable-uploads/e8867b04-4c21-46b9-ae73-cae1864d8e5c.png"
+    preview: "/lovable-uploads/43e42c45-5a85-4e8a-8354-760f84ab790a.png"
   }
 ];
 
