@@ -16,7 +16,7 @@ import {
   Plus,
   Video,
   Mic,
-  HandRaised,
+  Hand,
   BookOpen,
   Calendar,
   BrainCircuit,

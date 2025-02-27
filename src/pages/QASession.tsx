@@ -9,7 +9,7 @@ import {
   GraduationCap, 
   MessageSquare, 
   ThumbsUp,
-  HandRaised,
+  Hand,
   Mic,
   Video,
   BrainCircuit,
@@ -73,7 +73,7 @@ const QASession = () => {
             onClick={() => setHandRaised(!handRaised)}
             className="gap-2"
           >
-            <HandRaised className="w-4 h-4" />
+            <Hand className="w-4 h-4" />
             {handRaised ? 'Hand Raised' : 'Raise Hand'}
           </Button>
           <Button variant="ghost" size="sm" className="gap-2">
