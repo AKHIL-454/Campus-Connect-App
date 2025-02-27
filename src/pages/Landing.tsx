@@ -102,19 +102,27 @@ const Landing = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Banner */}
-      <div className="relative h-[500px] w-full">
+      <div className="relative h-screen w-full">
         <img 
-          src="/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png" 
-          alt="RKV Campus" 
+          src="/lovable-uploads/5f57938e-039a-43b1-a474-9b831e8ebee6.png" 
+          alt="RGUKT RK Valley Campus" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/70 to-violet-900/70">
-          <div className="max-w-4xl mx-auto px-6 py-20 text-white">
-            <h1 className="text-5xl font-bold mb-6">Welcome to RKV CONNECT</h1>
-            <p className="text-xl mb-8">Your gateway to campus collaboration and success</p>
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-4xl mx-auto px-6 text-white drop-shadow-2xl">
+            <h1 className="text-6xl font-bold mb-6 leading-tight">
+              Connect, Collaborate, and<br />
+              Thrive Together
+            </h1>
+            <p className="text-2xl mb-8 max-w-2xl">
+              Your all-in-one platform for RGUKT RK Valley communication, collaboration, and community building.
+            </p>
             <div className="flex gap-4">
               <SignInButton mode="modal" afterSignInUrl="/home">
-                <Button size="lg" className="bg-white text-violet-900 hover:bg-white/90">
+                <Button 
+                  size="lg" 
+                  className="bg-white/90 backdrop-blur-sm text-slate-900 hover:bg-white"
+                >
                   Get Started
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
