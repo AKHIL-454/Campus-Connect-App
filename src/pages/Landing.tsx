@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SignInButton, SignUpButton } from "@clerk/clerk-react";
@@ -126,23 +125,25 @@ const Landing = () => {
             career growth, and meaningful connections.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in delay-200">
-            <Button 
-              size="lg"
-              onClick={() => setShowAuthDialog(true)}
-              className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
-            >
-              Get Started
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              onClick={() => navigate("/chat/bot")}
-              className="border-indigo-200 hover:border-indigo-400"
-            >
-              Try AI Assistant
-              <Bot className="ml-2 h-4 w-4" />
-            </Button>
+            <SignInButton mode="modal">
+              <Button 
+                size="lg"
+                className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
+              >
+                Get Started
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </SignInButton>
+            <SignInButton mode="modal">
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="border-indigo-200 hover:border-indigo-400"
+              >
+                Try AI Assistant
+                <Bot className="ml-2 h-4 w-4" />
+              </Button>
+            </SignInButton>
           </div>
         </div>
       </header>
@@ -239,14 +240,15 @@ const Landing = () => {
           <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl mb-6">
             Ready to Transform Your University Experience?
           </h2>
-          <Button 
-            size="lg"
-            onClick={() => setShowAuthDialog(true)}
-            className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
-          >
-            Join Now
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <SignUpButton mode="modal">
+            <Button 
+              size="lg"
+              className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
+            >
+              Join Now
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </SignUpButton>
         </div>
       </section>
 
@@ -292,35 +294,6 @@ const Landing = () => {
           </div>
         </div>
       </footer>
-
-      {/* Auth Dialog */}
-      <Dialog open={showAuthDialog} onOpenChange={setShowAuthDialog}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Welcome Back!</DialogTitle>
-            <DialogDescription>
-              Sign in or create an account to get started
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex flex-col gap-4 py-4">
-            <SignInButton mode="modal">
-              <Button
-                className="w-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
-              >
-                Sign In
-              </Button>
-            </SignInButton>
-            <SignUpButton mode="modal">
-              <Button
-                variant="outline"
-                className="w-full border-indigo-200 hover:border-indigo-400"
-              >
-                Create Account
-              </Button>
-            </SignUpButton>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
