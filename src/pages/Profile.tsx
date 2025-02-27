@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { Card } from '@/components/ui/card';
@@ -7,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { UserRound, Mail, Phone, Home, IdCard, School, Building2, BookOpen, MapPin } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -22,12 +21,10 @@ interface ProfileData {
   idNumber: string;
   phone: string;
   address: string;
-  // Student specific fields
   year?: string;
   branch?: string;
   domNumber?: string;
   hostelBlock?: string;
-  // Teacher specific fields
   department?: string;
   designation?: string;
   specialization?: string;
@@ -38,6 +35,7 @@ const Profile = () => {
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
   const [role, setRole] = useState<UserRole>('student');
   const [profileData, setProfileData] = useState<ProfileData>({
     role: 'student',
@@ -49,10 +47,13 @@ const Profile = () => {
   useEffect(() => {
     if (user?.id) {
       loadUserProfile();
+    } else {
+      setIsLoading(false);
     }
   }, [user]);
 
   const loadUserProfile = async () => {
+    setIsLoading(true);
     try {
       const { data, error } = await supabase
         .from('profiles')
@@ -61,7 +62,13 @@ const Profile = () => {
         .single();
 
       if (error) {
-        console.error('Error loading profile:', error);
+        if (error.code !== 'PGRST116') {
+          toast({
+            title: "Error loading profile",
+            description: "There was a problem loading your profile. Please try again.",
+            variant: "destructive",
+          });
+        }
         return;
       }
 
@@ -71,18 +78,33 @@ const Profile = () => {
       }
     } catch (error) {
       console.error('Error loading profile:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load profile data. Please refresh the page.",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleSave = async () => {
+    if (!user?.id) {
+      toast({
+        title: "Error",
+        description: "You must be logged in to save your profile.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSaving(true);
     try {
       const updatedProfile = {
         ...profileData,
         role,
-        user_id: user?.id,
-        email: user?.primaryEmailAddress?.emailAddress,
+        user_id: user.id,
+        email: user.primaryEmailAddress?.emailAddress || '',
         updated_at: new Date().toISOString(),
       };
 
@@ -97,20 +119,35 @@ const Profile = () => {
       toast({
         title: "Success",
         description: "Profile updated successfully!",
-        duration: 3000,
       });
 
       setIsEditing(false);
+      loadUserProfile();
     } catch (error) {
       console.error('Error saving profile:', error);
       toast({
         title: "Error",
         description: "Failed to update profile. Please try again.",
         variant: "destructive",
-        duration: 3000,
       });
+    } finally {
+      setIsSaving(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-violet-50 pt-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <Card className="p-6 bg-white/80 backdrop-blur-xl shadow-xl">
+            <div className="flex items-center justify-center h-64">
+              <p className="text-muted-foreground">Loading profile...</p>
+            </div>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-violet-50 pt-20 px-4">
@@ -131,6 +168,7 @@ const Profile = () => {
             <Button
               onClick={() => setIsEditing(!isEditing)}
               className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
+              disabled={isSaving}
             >
               {isEditing ? 'Cancel' : 'Edit Profile'}
             </Button>
@@ -316,8 +354,9 @@ const Profile = () => {
               <Button
                 onClick={handleSave}
                 className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
+                disabled={isSaving}
               >
-                Save Changes
+                {isSaving ? 'Saving...' : 'Save Changes'}
               </Button>
             </div>
           )}
