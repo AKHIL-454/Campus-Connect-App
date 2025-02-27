@@ -142,7 +142,7 @@ const Clubs = () => {
             <Card 
               key={club.id} 
               className="p-6 hover:shadow-lg transition-all duration-300 cursor-pointer border-indigo-100 hover:border-indigo-200"
-              onClick={() => navigate(`/club/${club.name.toLowerCase().replace(/\s+/g, '-')}`)}
+              onClick={() => navigate(`/clubs/${club.name.toLowerCase().replace(/\s+/g, '-')}`)}
             >
               <div className="space-y-4">
                 <div className="space-y-2">

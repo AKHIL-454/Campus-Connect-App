@@ -34,7 +34,6 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/announcements" element={<Announcements />} />
         <Route path="/achievements" element={<Achievements />} />
-        
         {/* Protected routes */}
         <Route
           path="/home"
@@ -49,7 +48,14 @@ function App() {
             </>
           }
         />
-        
+        <Route
+          path="/profile"
+          element={
+            <>
+              <Profile />
+            </>
+          }
+        />
         <Route
           path="/career/*"
           element={
@@ -67,7 +73,6 @@ function App() {
             </>
           }
         />
-        
         <Route
           path="/alumni/*"
           element={
@@ -87,7 +92,6 @@ function App() {
             </>
           }
         />
-
         <Route
           path="/schedule"
           element={
@@ -101,7 +105,6 @@ function App() {
             </>
           }
         />
-        
         <Route
           path="/clubs/*"
           element={
@@ -118,7 +121,6 @@ function App() {
             </>
           }
         />
-
         <Route
           path="/chat/*"
           element={
@@ -137,7 +139,6 @@ function App() {
             </>
           }
         />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
