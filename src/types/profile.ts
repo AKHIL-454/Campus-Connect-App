@@ -13,4 +13,6 @@ export interface ProfileData {
   department?: string;
   designation?: string;
   specialization?: string;
+  created_at?: string;
+  updated_at?: string;
 }

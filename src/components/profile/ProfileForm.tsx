@@ -10,6 +10,7 @@ interface ProfileFormProps {
   role: UserRole;
   isEditing: boolean;
   isSaving: boolean;
+  isNewProfile: boolean;
   onRoleChange: (role: UserRole) => void;
   onProfileDataChange: (data: Partial<ProfileData>) => void;
   onSave: () => void;
@@ -20,17 +21,23 @@ export const ProfileForm = ({
   role,
   isEditing,
   isSaving,
+  isNewProfile,
   onRoleChange,
   onProfileDataChange,
   onSave,
 }: ProfileFormProps) => {
   return (
     <>
-      <Tabs defaultValue={role} className="mb-6" onValueChange={(value) => onRoleChange(value as UserRole)}>
+      <Tabs 
+        defaultValue={role} 
+        className="mb-6" 
+        onValueChange={(value) => onRoleChange(value as UserRole)}
+        disabled={!isNewProfile}
+      >
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="student">Student</TabsTrigger>
-          <TabsTrigger value="teacher">Teacher</TabsTrigger>
-          <TabsTrigger value="admin">Admin</TabsTrigger>
+          <TabsTrigger value="student" disabled={!isNewProfile}>Student</TabsTrigger>
+          <TabsTrigger value="teacher" disabled={!isNewProfile}>Teacher</TabsTrigger>
+          <TabsTrigger value="admin" disabled={!isNewProfile}>Admin</TabsTrigger>
         </TabsList>
 
         {/* Student Profile */}

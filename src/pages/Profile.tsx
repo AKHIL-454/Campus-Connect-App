@@ -14,6 +14,7 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isNewProfile, setIsNewProfile] = useState(true);
   const [role, setRole] = useState<UserRole>('student');
   const [profileData, setProfileData] = useState<ProfileData>({
     role: 'student',
@@ -47,12 +48,14 @@ const Profile = () => {
             variant: "destructive",
           });
         }
+        setIsNewProfile(true);
         return;
       }
 
       if (data) {
         setProfileData(data);
         setRole(data.role);
+        setIsNewProfile(false);
       }
     } catch (error) {
       console.error('Error loading profile:', error);
@@ -78,12 +81,14 @@ const Profile = () => {
 
     setIsSaving(true);
     try {
+      const now = new Date().toISOString();
       const updatedProfile = {
         ...profileData,
         role,
         user_id: user.id,
         email: user.primaryEmailAddress?.emailAddress || '',
-        updated_at: new Date().toISOString(),
+        updated_at: now,
+        created_at: isNewProfile ? now : profileData.created_at,
       };
 
       const { error } = await supabase
@@ -96,11 +101,12 @@ const Profile = () => {
 
       toast({
         title: "Success",
-        description: "Profile updated successfully!",
+        description: isNewProfile ? "Profile created successfully!" : "Profile updated successfully!",
       });
 
       setIsEditing(false);
-      loadUserProfile();
+      setIsNewProfile(false);
+      await loadUserProfile();
     } catch (error) {
       console.error('Error saving profile:', error);
       toast({
@@ -142,6 +148,7 @@ const Profile = () => {
             role={role}
             isEditing={isEditing}
             isSaving={isSaving}
+            isNewProfile={isNewProfile}
             onRoleChange={setRole}
             onProfileDataChange={(data) => setProfileData({ ...profileData, ...data })}
             onSave={handleSave}

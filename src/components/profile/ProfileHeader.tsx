@@ -1,11 +1,11 @@
 
-import { User } from '@clerk/clerk-react';
+import { UserResource } from '@clerk/types';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { UserRound } from 'lucide-react';
 
 interface ProfileHeaderProps {
-  user: User | null | undefined;
+  user: UserResource | null | undefined;
   isEditing: boolean;
   isSaving: boolean;
   onEditClick: () => void;
