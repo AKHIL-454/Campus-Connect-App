@@ -1,5 +1,5 @@
-
 import { useNavigate } from "react-router-dom";
+import { SignInButton, SignUpButton } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -122,23 +122,25 @@ const Landing = () => {
             career growth, and meaningful connections.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in delay-200">
-            <Button 
-              size="lg"
-              onClick={() => navigate("/sign-in")}
-              className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
-            >
-              Get Started
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              onClick={() => navigate("/chat/bot")}
-              className="border-indigo-200 hover:border-indigo-400"
-            >
-              Try AI Assistant
-              <Bot className="ml-2 h-4 w-4" />
-            </Button>
+            <SignInButton mode="modal" afterSignInUrl="/home">
+              <Button 
+                size="lg"
+                className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
+              >
+                Get Started
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </SignInButton>
+            <SignInButton mode="modal" afterSignInUrl="/chat/bot">
+              <Button 
+                variant="outline" 
+                size="lg"
+                className="border-indigo-200 hover:border-indigo-400"
+              >
+                Try AI Assistant
+                <Bot className="ml-2 h-4 w-4" />
+              </Button>
+            </SignInButton>
           </div>
         </div>
       </header>
@@ -235,14 +237,15 @@ const Landing = () => {
           <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl mb-6">
             Ready to Transform Your University Experience?
           </h2>
-          <Button 
-            size="lg"
-            onClick={() => navigate("/sign-up")}
-            className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
-          >
-            Join Now
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <SignUpButton mode="modal" afterSignUpUrl="/home">
+            <Button 
+              size="lg"
+              className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
+            >
+              Join Now
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </SignUpButton>
         </div>
       </section>
 
