@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import Navigation from "@/components/Navigation";
@@ -99,10 +100,14 @@ const Chat = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <div className="container mx-auto px-4 py-6 mt-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 max-h-[calc(100vh-8rem)]">
-          <Card className="lg:col-span-3 p-4 h-[calc(100vh-8rem)] overflow-y-auto border-slate-200">
+      {/* Changed max-w-7xl and adjusted paddings for better space utilization */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 mt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-[calc(100vh-8rem)]">
+          {/* Adjusted sidebar width */}
+          <Card className="lg:col-span-3 p-4 h-full overflow-y-auto border-slate-200">
+            {/* Sidebar content */}
             <div className="space-y-4">
+              {/* Search */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
                 <Input 
@@ -271,7 +276,8 @@ const Chat = () => {
             </div>
           </Card>
 
-          <Card className="lg:col-span-9 h-[calc(100vh-8rem)] overflow-hidden border-slate-200">
+          {/* Adjusted main content width and added full width */}
+          <Card className="lg:col-span-9 h-full overflow-hidden border-slate-200 w-full">
             <Outlet />
           </Card>
         </div>
