@@ -14,7 +14,8 @@ import {
   Briefcase,
   MessagesSquare,
   GraduationCap,
-  LogIn
+  LogIn,
+  Trophy
 } from "lucide-react";
 
 const Navigation = () => {
@@ -31,6 +32,7 @@ const Navigation = () => {
     { name: 'Career', icon: Briefcase, href: '/career' },
     { name: 'Alumni', icon: GraduationCap, href: '/alumni' },
     { name: 'Chat', icon: MessagesSquare, href: '/chat' },
+    { name: 'Achievements', icon: Trophy, href: '/achievements' },
   ];
 
   const isActive = (path: string) => {

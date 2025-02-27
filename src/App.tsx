@@ -21,6 +21,7 @@ import NotFound from "@/pages/NotFound";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
 import Profile from "@/pages/Profile";
+import Achievements from "@/pages/Achievements";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/" element={<Index />} />
         <Route path="/announcements" element={<Announcements />} />
+        <Route path="/achievements" element={<Achievements />} />
         
         {/* Protected routes */}
         <Route
