@@ -1,9 +1,7 @@
-
 import { useNavigate } from "react-router-dom";
 import { SignInButton, SignUpButton } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
+import { useEffect, useRef } from "react";
 import { 
   MessagesSquare, 
   Bell, 
@@ -99,12 +97,30 @@ const testimonials = [
 
 const Landing = () => {
   const navigate = useNavigate();
+  const bannerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (bannerRef.current) {
+        const scrolled = window.scrollY;
+        const rate = scrolled * 0.5; // Adjust this value to control parallax speed
+        bannerRef.current.style.transform = `translate3d(0, ${rate}px, 0)`;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="min-h-screen">
       {/* Hero Banner */}
-      <div className="relative h-screen w-full">
-        <div className="absolute inset-0 backdrop-blur-[8px]">
+      <div className="relative h-screen w-full overflow-hidden">
+        <div 
+          ref={bannerRef}
+          className="absolute inset-0 h-[120%] backdrop-blur-[8px] will-change-transform"
+          style={{ transform: 'translate3d(0, 0, 0)' }}
+        >
           <img 
             src="/lovable-uploads/5f57938e-039a-43b1-a474-9b831e8ebee6.png" 
             alt="RGUKT RK Valley Campus" 
