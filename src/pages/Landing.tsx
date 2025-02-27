@@ -103,19 +103,20 @@ const Landing = () => {
     <div className="min-h-screen">
       {/* Hero Banner */}
       <div className="relative h-screen w-full">
-        <img 
-          src="/lovable-uploads/5f57938e-039a-43b1-a474-9b831e8ebee6.png" 
-          alt="RGUKT RK Valley Campus" 
-          className="w-full h-full object-cover"
-        />
+        <div className="absolute inset-0 backdrop-blur-[2px]">
+          <img 
+            src="/lovable-uploads/5f57938e-039a-43b1-a474-9b831e8ebee6.png" 
+            alt="RGUKT RK Valley Campus" 
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-4xl mx-auto px-6 text-white drop-shadow-2xl">
-            <h1 className="text-6xl font-bold mb-6 leading-tight">
-              Connect, Collaborate, and<br />
-              Thrive Together
+            <h1 className="text-6xl font-bold mb-6 leading-tight font-['Raleway']">
+              Welcome to RKV CONNECT
             </h1>
-            <p className="text-2xl mb-8 max-w-2xl">
-              Your all-in-one platform for RGUKT RK Valley communication, collaboration, and community building.
+            <p className="text-3xl mb-8 max-w-2xl font-['Raleway']">
+              Connect, Collaborate, and Thrive Together
             </p>
             <div className="flex gap-4">
               <SignInButton mode="modal" afterSignInUrl="/home">
@@ -136,7 +137,7 @@ const Landing = () => {
       <section className="py-20 px-6 lg:px-8 bg-white/50 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl font-['Raleway']">
               Everything You Need to Succeed
             </h2>
             <p className="mt-4 text-lg text-slate-600">
@@ -274,7 +275,7 @@ const Landing = () => {
             </div>
           </div>
           <div className="mt-12 pt-8 border-t border-slate-200 text-center text-sm text-slate-500">
-            © 2024 University Discussion Platform. All rights reserved.
+            © 2024 RKV CONNECT. All rights reserved.
           </div>
         </div>
       </footer>

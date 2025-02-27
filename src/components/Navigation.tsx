@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { SignedIn, SignedOut, UserButton, useClerk } from "@clerk/clerk-react";
@@ -25,7 +24,7 @@ const Navigation = () => {
   const { signOut } = useClerk();
 
   const navItems = [
-    { name: 'Discussions', icon: MessageSquare, href: '/' },
+    { name: 'Discussions', icon: MessageSquare, href: '/home' },
     { name: 'Announcements', icon: Megaphone, href: '/announcements' },
     { name: 'Schedule', icon: Calendar, href: '/schedule' },
     { name: 'Clubs', icon: Users, href: '/clubs' },
@@ -49,7 +48,7 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link to="/" className="text-xl font-semibold">UniConnect</Link>
+            <Link to="/" className="text-xl font-semibold font-['Raleway']">RKV CONNECT</Link>
           </div>
 
           {/* Desktop Navigation */}
