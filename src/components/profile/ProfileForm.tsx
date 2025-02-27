@@ -1,4 +1,3 @@
-
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -26,18 +25,41 @@ export const ProfileForm = ({
   onProfileDataChange,
   onSave,
 }: ProfileFormProps) => {
+  const handleRoleChange = (value: string) => {
+    if (isNewProfile) {
+      onRoleChange(value as UserRole);
+    }
+  };
+
   return (
     <>
       <Tabs 
         defaultValue={role} 
         className="mb-6" 
-        onValueChange={(value) => onRoleChange(value as UserRole)}
-        disabled={!isNewProfile}
+        onValueChange={handleRoleChange}
       >
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="student" disabled={!isNewProfile}>Student</TabsTrigger>
-          <TabsTrigger value="teacher" disabled={!isNewProfile}>Teacher</TabsTrigger>
-          <TabsTrigger value="admin" disabled={!isNewProfile}>Admin</TabsTrigger>
+          <TabsTrigger 
+            value="student" 
+            className={!isNewProfile ? 'cursor-not-allowed opacity-50' : ''}
+            onClick={(e) => !isNewProfile && e.preventDefault()}
+          >
+            Student
+          </TabsTrigger>
+          <TabsTrigger 
+            value="teacher"
+            className={!isNewProfile ? 'cursor-not-allowed opacity-50' : ''}
+            onClick={(e) => !isNewProfile && e.preventDefault()}
+          >
+            Teacher
+          </TabsTrigger>
+          <TabsTrigger 
+            value="admin"
+            className={!isNewProfile ? 'cursor-not-allowed opacity-50' : ''}
+            onClick={(e) => !isNewProfile && e.preventDefault()}
+          >
+            Admin
+          </TabsTrigger>
         </TabsList>
 
         {/* Student Profile */}
