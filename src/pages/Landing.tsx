@@ -12,8 +12,6 @@ import {
   GraduationCap, 
   Shield,
   ArrowRight,
-  Star,
-  Globe,
 } from "lucide-react";
 
 const features = [
@@ -21,49 +19,57 @@ const features = [
     icon: MessagesSquare,
     title: "Structured Discussion Forum",
     description: "Engage in organized discussions with intelligent threading and reputation system",
-    gradient: "from-blue-500 to-indigo-500"
+    gradient: "from-blue-500 to-indigo-500",
+    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
   },
   {
     icon: Bell,
     title: "Real-Time Notifications",
     description: "Stay updated with personalized alerts and announcements",
-    gradient: "from-violet-500 to-purple-500"
+    gradient: "from-violet-500 to-purple-500",
+    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
   },
   {
     icon: Calendar,
     title: "Smart Timetables",
     description: "Automated scheduling with smart reminders for classes and exams",
-    gradient: "from-cyan-500 to-blue-500"
+    gradient: "from-cyan-500 to-blue-500",
+    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
   },
   {
     icon: Users,
     title: "Student Clubs Hub",
     description: "Join and manage student organizations with ease",
-    gradient: "from-emerald-500 to-teal-500"
+    gradient: "from-emerald-500 to-teal-500",
+    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
   },
   {
     icon: Bot,
     title: "AI Assistant & Live Q&A",
     description: "Get instant help and join live sessions with faculty",
-    gradient: "from-violet-500 to-fuchsia-500"
+    gradient: "from-violet-500 to-fuchsia-500",
+    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
   },
   {
     icon: Briefcase,
     title: "Career Portal",
     description: "Access job postings, hackathons, and research opportunities",
-    gradient: "from-orange-500 to-pink-500"
+    gradient: "from-orange-500 to-pink-500",
+    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
   },
   {
     icon: GraduationCap,
     title: "Alumni Network",
     description: "Connect with alumni for mentorship and networking",
-    gradient: "from-blue-500 to-violet-500"
+    gradient: "from-blue-500 to-violet-500",
+    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
   },
   {
     icon: Shield,
     title: "Secure Platform",
     description: "Role-based access control with verified authentication",
-    gradient: "from-slate-500 to-gray-500"
+    gradient: "from-slate-500 to-gray-500",
+    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
   }
 ];
 
@@ -103,7 +109,7 @@ const Landing = () => {
     const handleScroll = () => {
       if (bannerRef.current) {
         const scrolled = window.scrollY;
-        const rate = scrolled * 0.5; // Adjust this value to control parallax speed
+        const rate = scrolled * 0.5;
         bannerRef.current.style.transform = `translate3d(0, ${rate}px, 0)`;
       }
     };
@@ -118,7 +124,7 @@ const Landing = () => {
       <div className="relative h-screen w-full overflow-hidden">
         <div 
           ref={bannerRef}
-          className="absolute inset-0 h-[120%] backdrop-blur-[8px] will-change-transform"
+          className="absolute inset-0 h-[120%] backdrop-blur-[30px] will-change-transform"
           style={{ transform: 'translate3d(0, 0, 0)' }}
         >
           <img 
@@ -167,8 +173,16 @@ const Landing = () => {
                 key={index}
                 className="group p-6 rounded-2xl bg-white shadow-sm border border-slate-200 hover:shadow-lg hover:scale-105 transition-all duration-300"
               >
-                <div className={`p-3 rounded-xl bg-gradient-to-br ${feature.gradient} mb-4`}>
-                  <feature.icon className="w-6 h-6 text-white" />
+                <div className="relative w-full h-40 mb-6 rounded-xl overflow-hidden">
+                  <img 
+                    src={feature.preview} 
+                    alt={feature.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-60`}></div>
+                  <div className="absolute top-4 left-4 p-3 rounded-xl bg-white/20 backdrop-blur-sm">
+                    <feature.icon className="w-6 h-6 text-white" />
+                  </div>
                 </div>
                 <h3 className="text-lg font-semibold text-slate-900 mb-2">
                   {feature.title}
