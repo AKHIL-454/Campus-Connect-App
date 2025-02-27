@@ -8,8 +8,10 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      <GamificationHub />
-      <DiscussionForum />
+      <div className="mt-16"> {/* Added margin-top to account for fixed navbar */}
+        <GamificationHub />
+        <DiscussionForum />
+      </div>
       <FloatingChatbot />
     </div>
   );
