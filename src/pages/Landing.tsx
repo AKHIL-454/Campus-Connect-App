@@ -20,56 +20,56 @@ const features = [
     title: "Structured Discussion Forum",
     description: "Engage in organized discussions with intelligent threading and reputation system",
     gradient: "from-blue-500 to-indigo-500",
-    preview: "/lovable-uploads/photo-1488590528505-98d2b5aba04b.jpeg"
+    preview: "/lovable-uploads/9d3d83ab-3d2c-4940-8e07-05e57b8f705d.png"
   },
   {
     icon: Bell,
     title: "Real-Time Notifications",
     description: "Stay updated with personalized alerts and announcements",
     gradient: "from-violet-500 to-purple-500",
-    preview: "/lovable-uploads/photo-1581091226825-a6a2a5aee158.jpeg"
+    preview: "/lovable-uploads/4a70bf90-7731-40a9-9744-90ee23026226.png"
   },
   {
     icon: Calendar,
     title: "Smart Timetables",
     description: "Automated scheduling with smart reminders for classes and exams",
     gradient: "from-cyan-500 to-blue-500",
-    preview: "/lovable-uploads/photo-1485827404703-89b55fcc595e.jpeg"
+    preview: "/lovable-uploads/43e42c45-5a85-4e8a-8354-760f84ab790a.png"
   },
   {
     icon: Users,
     title: "Student Clubs Hub",
     description: "Join and manage student organizations with ease",
     gradient: "from-emerald-500 to-teal-500",
-    preview: "/lovable-uploads/photo-1605810230434-7631ac76ec81.jpeg"
+    preview: "/lovable-uploads/df42b304-0bc9-4c56-a352-4824be361dc3.png"
   },
   {
     icon: Bot,
     title: "AI Assistant & Live Q&A",
     description: "Get instant help and join live sessions with faculty",
     gradient: "from-violet-500 to-fuchsia-500",
-    preview: "/lovable-uploads/photo-1485827404703-89b55fcc595e.jpeg"
+    preview: "/lovable-uploads/e8867b04-4c21-46b9-ae73-cae1864d8e5c.png"
   },
   {
     icon: Briefcase,
     title: "Career Portal",
     description: "Access job postings, hackathons, and research opportunities",
     gradient: "from-orange-500 to-pink-500",
-    preview: "/lovable-uploads/photo-1461749280684-dccba630e2f6.jpeg"
+    preview: "/lovable-uploads/2d991150-2453-4660-931a-0ef4efc5b2af.png"
   },
   {
     icon: GraduationCap,
     title: "Alumni Network",
     description: "Connect with alumni for mentorship and networking",
     gradient: "from-blue-500 to-violet-500",
-    preview: "/lovable-uploads/photo-1498050108023-c5249f4df085.jpeg"
+    preview: "/lovable-uploads/5357cb86-0c64-4355-abd2-024444b6c29d.png"
   },
   {
     icon: Shield,
     title: "Secure Platform",
     description: "Role-based access control with verified authentication",
     gradient: "from-slate-500 to-gray-500",
-    preview: "/lovable-uploads/photo-1488590528505-98d2b5aba04b.jpeg"
+    preview: "/lovable-uploads/e8867b04-4c21-46b9-ae73-cae1864d8e5c.png"
   }
 ];
 
@@ -127,7 +127,7 @@ const Landing = () => {
           className="absolute inset-0 h-[120%] will-change-transform"
           style={{ transform: 'translate3d(0, 0, 0)' }}
         >
-          <div className="absolute inset-0 bg-black/20 z-10"></div>
+          <div className="absolute inset-0 bg-black/35 z-10"></div>
           <img 
             src="/lovable-uploads/5f57938e-039a-43b1-a474-9b831e8ebee6.png" 
             alt="RGUKT RK Valley Campus" 
