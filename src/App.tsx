@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
+import { Toaster } from "@/components/ui/toaster";
 import Landing from "@/pages/Landing";
 import Index from "@/pages/Index";
 import Career from "@/pages/Career";
@@ -141,6 +142,7 @@ function App() {
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Toaster />
     </Router>
   );
 }

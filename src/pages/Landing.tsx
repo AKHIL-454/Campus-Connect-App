@@ -100,50 +100,29 @@ const Landing = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-violet-50">
-      {/* Hero Section */}
-      <header className="relative overflow-hidden px-6 lg:px-8 pt-24 pb-32 md:pt-32 md:pb-40">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px)] bg-[size:5rem_1px]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:1px_5rem]" />
-        </div>
-        <div className="mx-auto max-w-4xl text-center">
-          <Badge 
-            variant="secondary" 
-            className="mb-8 animate-fade-in bg-white/50 backdrop-blur-sm border-violet-200 text-violet-800"
-          >
-            Welcome to the Future of University Collaboration
-          </Badge>
-          <h1 className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent text-4xl/tight sm:text-5xl/tight lg:text-6xl/tight font-bold animate-fade-in">
-            Transform Your University Experience with Smart Collaboration
-          </h1>
-          <p className="mt-6 text-lg text-slate-600 animate-fade-in delay-100">
-            Join thousands of students, faculty, and alumni in a unified platform for discussions,
-            career growth, and meaningful connections.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in delay-200">
-            <SignInButton mode="modal" afterSignInUrl="/home">
-              <Button 
-                size="lg"
-                className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
-              >
-                Get Started
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </SignInButton>
-            <SignInButton mode="modal" afterSignInUrl="/chat/bot">
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="border-indigo-200 hover:border-indigo-400"
-              >
-                Try AI Assistant
-                <Bot className="ml-2 h-4 w-4" />
-              </Button>
-            </SignInButton>
+    <div className="min-h-screen">
+      {/* Hero Banner */}
+      <div className="relative h-[500px] w-full">
+        <img 
+          src="/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png" 
+          alt="RKV Campus" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/70 to-violet-900/70">
+          <div className="max-w-4xl mx-auto px-6 py-20 text-white">
+            <h1 className="text-5xl font-bold mb-6">Welcome to RKV CONNECT</h1>
+            <p className="text-xl mb-8">Your gateway to campus collaboration and success</p>
+            <div className="flex gap-4">
+              <SignInButton mode="modal" afterSignInUrl="/home">
+                <Button size="lg" className="bg-white text-violet-900 hover:bg-white/90">
+                  Get Started
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </SignInButton>
+            </div>
           </div>
         </div>
-      </header>
+      </div>
 
       {/* Features Grid */}
       <section className="py-20 px-6 lg:px-8 bg-white/50 backdrop-blur-sm">

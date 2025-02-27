@@ -1,17 +1,20 @@
-
-import { MessageCircle, User, ThumbsUp, TrendingUp, Activity, Search } from "lucide-react";
+import { useState } from "react";
+import { MessageCircle, User, ThumbsUp, TrendingUp, Activity, Search, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogFooter,
 } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const categories = [
   { name: 'Academics', count: 156, color: 'bg-indigo-100 text-indigo-800 hover:bg-indigo-200' },
@@ -69,6 +72,39 @@ const discussions = [
 
 const DiscussionForum = () => {
   const [selectedDiscussion, setSelectedDiscussion] = useState<typeof discussions[0] | null>(null);
+  const [isNewDiscussionOpen, setIsNewDiscussionOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleNewDiscussion = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    toast({
+      title: "Discussion Created",
+      description: "Your discussion has been posted successfully.",
+    });
+    
+    setIsSubmitting(false);
+    setIsNewDiscussionOpen(false);
+  };
+
+  const handleLike = (id: number) => {
+    toast({
+      title: "Post Liked",
+      description: "You have successfully liked this post.",
+    });
+  };
+
+  const handleComment = () => {
+    toast({
+      title: "Comment Posted",
+      description: "Your comment has been added successfully.",
+    });
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-16">
@@ -118,7 +154,10 @@ const DiscussionForum = () => {
               <MessageCircle className="w-6 h-6 text-indigo-600" />
               <h2 className="text-2xl font-semibold text-foreground">Recent Discussions</h2>
             </div>
-            <Button className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90">
+            <Button 
+              className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:opacity-90"
+              onClick={() => setIsNewDiscussionOpen(true)}
+            >
               New Discussion
             </Button>
           </div>
@@ -170,6 +209,68 @@ const DiscussionForum = () => {
           ))}
         </div>
       </div>
+
+      <Dialog open={isNewDiscussionOpen} onOpenChange={setIsNewDiscussionOpen}>
+        <DialogContent className="sm:max-w-[525px]">
+          <DialogHeader>
+            <DialogTitle>Create New Discussion</DialogTitle>
+            <DialogDescription>
+              Share your thoughts with the community. Fill out the form below to start a new discussion.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleNewDiscussion}>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <label htmlFor="title" className="text-sm font-medium">Title</label>
+                <Input 
+                  id="title" 
+                  placeholder="Enter discussion title" 
+                  required 
+                />
+              </div>
+              <div className="grid gap-2">
+                <label htmlFor="category" className="text-sm font-medium">Category</label>
+                <Select required>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((category) => (
+                      <SelectItem key={category.name} value={category.name}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <label htmlFor="content" className="text-sm font-medium">Content</label>
+                <Textarea 
+                  id="content" 
+                  placeholder="Write your discussion content here..."
+                  className="min-h-[150px]"
+                  required
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" type="button" onClick={() => setIsNewDiscussionOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creating...
+                  </>
+                ) : (
+                  'Create Discussion'
+                )}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={!!selectedDiscussion} onOpenChange={() => setSelectedDiscussion(null)}>
         <DialogContent className="max-w-4xl h-[90vh] flex flex-col p-0 gap-0">
