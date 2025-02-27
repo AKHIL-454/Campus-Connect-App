@@ -20,56 +20,56 @@ const features = [
     title: "Structured Discussion Forum",
     description: "Engage in organized discussions with intelligent threading and reputation system",
     gradient: "from-blue-500 to-indigo-500",
-    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
+    preview: "/lovable-uploads/photo-1488590528505-98d2b5aba04b.jpeg"
   },
   {
     icon: Bell,
     title: "Real-Time Notifications",
     description: "Stay updated with personalized alerts and announcements",
     gradient: "from-violet-500 to-purple-500",
-    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
+    preview: "/lovable-uploads/photo-1581091226825-a6a2a5aee158.jpeg"
   },
   {
     icon: Calendar,
     title: "Smart Timetables",
     description: "Automated scheduling with smart reminders for classes and exams",
     gradient: "from-cyan-500 to-blue-500",
-    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
+    preview: "/lovable-uploads/photo-1485827404703-89b55fcc595e.jpeg"
   },
   {
     icon: Users,
     title: "Student Clubs Hub",
     description: "Join and manage student organizations with ease",
     gradient: "from-emerald-500 to-teal-500",
-    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
+    preview: "/lovable-uploads/photo-1605810230434-7631ac76ec81.jpeg"
   },
   {
     icon: Bot,
     title: "AI Assistant & Live Q&A",
     description: "Get instant help and join live sessions with faculty",
     gradient: "from-violet-500 to-fuchsia-500",
-    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
+    preview: "/lovable-uploads/photo-1485827404703-89b55fcc595e.jpeg"
   },
   {
     icon: Briefcase,
     title: "Career Portal",
     description: "Access job postings, hackathons, and research opportunities",
     gradient: "from-orange-500 to-pink-500",
-    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
+    preview: "/lovable-uploads/photo-1461749280684-dccba630e2f6.jpeg"
   },
   {
     icon: GraduationCap,
     title: "Alumni Network",
     description: "Connect with alumni for mentorship and networking",
     gradient: "from-blue-500 to-violet-500",
-    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
+    preview: "/lovable-uploads/photo-1498050108023-c5249f4df085.jpeg"
   },
   {
     icon: Shield,
     title: "Secure Platform",
     description: "Role-based access control with verified authentication",
     gradient: "from-slate-500 to-gray-500",
-    preview: "/lovable-uploads/f04b1e56-688c-4131-b57a-54bbb5f6fee3.png"
+    preview: "/lovable-uploads/photo-1488590528505-98d2b5aba04b.jpeg"
   }
 ];
 
@@ -124,16 +124,17 @@ const Landing = () => {
       <div className="relative h-screen w-full overflow-hidden">
         <div 
           ref={bannerRef}
-          className="absolute inset-0 h-[120%] backdrop-blur-[30px] will-change-transform"
+          className="absolute inset-0 h-[120%] will-change-transform"
           style={{ transform: 'translate3d(0, 0, 0)' }}
         >
+          <div className="absolute inset-0 bg-black/20 z-10"></div>
           <img 
             src="/lovable-uploads/5f57938e-039a-43b1-a474-9b831e8ebee6.png" 
             alt="RGUKT RK Valley Campus" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover backdrop-blur-[30px]"
           />
         </div>
-        <div className="absolute inset-0 flex items-center">
+        <div className="absolute inset-0 flex items-center z-20">
           <div className="max-w-4xl mx-auto px-6 text-white drop-shadow-2xl">
             <h1 className="text-6xl font-bold mb-6 leading-tight font-['Raleway']">
               Welcome to RKV CONNECT
